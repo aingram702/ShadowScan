@@ -1375,46 +1375,79 @@ class ShadowScanApp:
         
         def analyze_thread():
             try:
+                # Some plans may not support this endpoint
                 score = self.api.labs.honeyscore(ip)
                 
                 self.root.after(0, lambda: self.honeypot_text.delete('1.0', tk.END))
-                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, "[HONEYPOT ANALYSIS]\\n\\n", 'header'))
+                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, "[HONEYPOT ANALYSIS]\n\n", 'header'))
                 
                 self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"  IP Address: ", 'key'))
-                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"{ip}\\n\\n", 'value'))
+                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"{ip}\n\n", 'value'))
                 
                 self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"  Honeypot Score: ", 'key'))
                 
                 # Color-code based on score
-                if score < 0.3:
-                    tag = 'safe'
-                    rating = "LOW - Likely legitimate system"
-                elif score < 0.6:
+                # The score ranges from 0.0 to 1.0
+                if score is None:
+                    # Sometimes API returns None if it can't determine
                     tag = 'warning'
-                    rating = "MEDIUM - Inconclusive, use caution"
+                    formatted_score = "N/A"
+                    rating = "UNKNOWN - Could not determine honeypot score"
                 else:
-                    tag = 'danger'
-                    rating = "HIGH - Likely a honeypot!"
-                
-                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"{score:.2f}\\n", tag))
+                    try:
+                        score_float = float(score)
+                        formatted_score = f"{score_float:.2f}"
+                        if score_float < 0.3:
+                            tag = 'safe'
+                            rating = "LOW - Likely legitimate system"
+                        elif score_float < 0.6:
+                            tag = 'warning'
+                            rating = "MEDIUM - Inconclusive, use caution"
+                        else:
+                            tag = 'danger'
+                            rating = "HIGH - Likely a honeypot!"
+                    except (ValueError, TypeError):
+                         tag = 'warning'
+                         formatted_score = str(score)
+                         rating = "UNKNOWN - Format error"
+
+                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"{formatted_score}\n", tag))
                 self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"  Assessment: ", 'key'))
-                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"{rating}\\n\\n", tag))
+                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"{rating}\n\n", tag))
                 
-                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, "[RECOMMENDATION]\\n", 'header'))
-                if score < 0.3:
-                    self.root.after(0, lambda: self.honeypot_text.insert(tk.END, "  This IP appears to be a legitimate system. However, always verify before taking action.\\n", 'safe'))
-                elif score < 0.6:
-                    self.root.after(0, lambda: self.honeypot_text.insert(tk.END, "  The results are inconclusive. Exercise extreme caution and perform additional reconnaissance.\\n", 'warning'))
+                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, "[RECOMMENDATION]\n", 'header'))
+                if score is not None and isinstance(score, (int, float)):
+                    if score < 0.3:
+                        msg = "  This IP appears to be a legitimate system. However, always verify before taking action.\n"
+                        self.root.after(0, lambda: self.honeypot_text.insert(tk.END, msg, 'safe'))
+                    elif score < 0.6:
+                        msg = "  The results are inconclusive. Exercise extreme caution and perform additional reconnaissance.\n"
+                        self.root.after(0, lambda: self.honeypot_text.insert(tk.END, msg, 'warning'))
+                    else:
+                        msg = "  This IP has strong honeypot indicators. Avoid interaction to prevent detection.\n"
+                        self.root.after(0, lambda: self.honeypot_text.insert(tk.END, msg, 'danger'))
                 else:
-                    self.root.after(0, lambda: self.honeypot_text.insert(tk.END, "  This IP has strong honeypot indicators. Avoid interaction to prevent detection.\\n", 'danger'))
+                     msg = "  Unable to calculate specific risk score. Treat with standard caution.\n"
+                     self.root.after(0, lambda: self.honeypot_text.insert(tk.END, msg, 'warning'))
                 
                 self.root.after(0, lambda: self.update_status(f"Honeypot analysis complete: {ip}", self.colors['accent_green']))
                 
             except shodan.APIError as e:
-                self.root.after(0, lambda: self.update_status(f"Honeypot Error: {str(e)}", self.colors['accent_red']))
-                self.root.after(0, lambda: messagebox.showerror("Honeypot Error", str(e)))
+                error_msg = str(e)
+                if "404" in error_msg:
+                    nice_msg = "Honeyscore not found for this IP."
+                elif "403" in error_msg or "access denied" in error_msg.lower():
+                    nice_msg = "Access Denied: Your API plan may not support Honeypot Scoring."
+                else:
+                    nice_msg = f"API Error: {error_msg}"
+                
+                self.root.after(0, lambda: self.update_status(nice_msg, self.colors['accent_red']))
+                self.root.after(0, lambda: self.honeypot_text.delete('1.0', tk.END))
+                self.root.after(0, lambda: self.honeypot_text.insert(tk.END, f"[ERROR]\n{nice_msg}\n", 'danger'))
+                
             except Exception as e:
                 self.root.after(0, lambda: self.update_status(f"Error: {str(e)}", self.colors['accent_red']))
+                self.root.after(0, lambda: messagebox.showerror("Honeypot Error", str(e)))
             finally:
                 self.root.after(0, self.stop_loading)
         
