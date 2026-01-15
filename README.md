@@ -1,7 +1,5 @@
 # ShadowScan - Advanced Shodan Intelligence Platform
 
-![Screenshot Image 1](https://github.com/aingram702/ShadowScan/blob/main/shadowscan/sc.png)
-
 A professional dark-themed GUI wrapper for Shodan reconnaissance operations designed for security professionals and penetration testers.
 
 ## 🚀 Features
@@ -106,5 +104,4 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-
 SOFTWARE.

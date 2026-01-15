@@ -137,12 +137,49 @@ QUICK_FILTERS = [
 # Country Codes
 COUNTRY_CODES = [
     "",  # Empty for no filter
-    "US", "GB", "DE", "FR", "CN", "RU", "JP", "KR", "BR", "IN",
-    "AU", "CA", "IT", "ES", "NL", "SE", "CH", "PL", "UA", "TR",
-    "MX", "ID", "TH", "VN", "PH", "MY", "SG", "HK", "TW", "ZA",
-    "NG", "EG", "AE", "SA", "IL", "AR", "CL", "CO", "PE", "NZ",
-    "IE", "BE", "AT", "NO", "DK", "FI", "CZ", "RO", "HU", "GR",
-    "PT", "PK", "BD", "IR", "IQ", "KZ", "UZ", "BY", "LT", "LV",
+    # North America
+    "US", "CA", "MX", "GT", "BZ", "CR", "SV", "HN", "NI", "PA",
+    "CU", "DO", "JM", "HT", "TT", "BS", "BB", "PR",
+    # South America
+    "BR", "AR", "CL", "CO", "PE", "VE", "EC", "UY", "BO", "PY",
+    "GY", "SR", "GF",
+    # Europe (Western)
+    "GB", "IE", "FR", "DE", "IT", "ES", "PT", "NL", "BE", "LU",
+    "CH", "AT", "MC", "LI",
+    # Europe (Northern)
+    "SE", "NO", "DK", "FI", "IS", "EE", "LV", "LT",
+    # Europe (Southern)
+    "GR", "AL", "MK", "RS", "HR", "SI", "BA", "ME", "XK",
+    "MT", "CY",
+    # Europe (Eastern)
+    "RU", "UA", "BY", "PL", "CZ", "SK", "HU", "RO", "BG", "MD",
+    # Middle East
+    "SA", "AE", "IL", "TR", "IR", "IQ", "KW", "OM", "QA", "BH",
+    "JO", "LB", "YE", "SY", "PS",
+    # Asia (East)
+    "CN", "JP", "KR", "KP", "TW", "HK", "MO", "MN",
+    # Asia (Southeast)
+    "TH", "VN", "PH", "MY", "SG", "ID", "MM", "KH", "LA", "BN",
+    "TL",
+    # Asia (South)
+    "IN", "PK", "BD", "LK", "NP", "BT", "MV", "AF",
+    # Asia (Central)
+    "KZ", "UZ", "TM", "KG", "TJ",
+    # Africa (North)
+    "EG", "DZ", "MA", "TN", "LY", "SD", "SS",
+    # Africa (West)
+    "NG", "GH", "CI", "SN", "ML", "BF", "NE", "GM", "GN", "SL",
+    "LR", "TG", "BJ", "MR", "GW", "CV",
+    # Africa (East)
+    "KE", "ET", "TZ", "UG", "SO", "ER", "DJ", "RW", "BI", "SC",
+    "MU", "KM", "YT", "RE",
+    # Africa (Central)
+    "CD", "AO", "CM", "TD", "CF", "CG", "GA", "GQ", "ST",
+    # Africa (Southern)
+    "ZA", "ZW", "ZM", "MW", "MZ", "BW", "NA", "LS", "SZ", "MG",
+    # Oceania
+    "AU", "NZ", "FJ", "PG", "NC", "PF", "GU", "AS", "MP", "WS",
+    "TO", "VU", "SB", "KI", "TV", "NR", "PW", "FM", "MH",
 ]
 
 # Common Ports
