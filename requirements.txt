@@ -1,0 +1,5 @@
+# ShadowScan Requirements
+# Install with: pip install -r requirements.txt
+
+shodan>=1.28.0
+requests>=2.28.0

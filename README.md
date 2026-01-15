@@ -1,2 +1,1 @@
-# ShadowScan
-Advanced GUI Wrapper for Shodan
+# ShadowScan - Advanced Shodan Intelligence Platform
