@@ -11,12 +11,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="shadowscan",
     version="1.0.0",
-    author="ShadowScan Team",
-    author_email="shadowscan@example.com",
+    author="aingram702",
+    author_email="aingram702@pm.me",
     description="Advanced Shodan Intelligence Platform",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/shadowscan",
+    url="https://github.com/aingram702/ShadowScan",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
