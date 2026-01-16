@@ -2,7 +2,7 @@
 
 A professional dark-themed GUI wrapper for Shodan reconnaissance operations designed for security professionals and penetration testers.
 
-[Screenshot of ShadowScan UI](https://github.com/aingram702/ShadowScan/blob/main/shadowscan/sc0.png)
+![Screenshot of ShadowScan UI](https://github.com/aingram702/ShadowScan/blob/main/shadowscan/sc0.png)
 
 ## 🚀 Features
 
@@ -108,3 +108,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 
 SOFTWARE.
+
